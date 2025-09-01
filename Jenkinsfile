@@ -10,7 +10,9 @@ pipeline {
         }
         stage('Build image') {  
             steps {
-                docker.build("node-webapp")   
+                script {
+                    docker.build("node-webapp")   
+                }
             }       
         }
         stage('Run image') {
