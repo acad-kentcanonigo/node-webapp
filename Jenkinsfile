@@ -2,16 +2,22 @@ pipeline {
     agent any
     stages {
         stage('Clone Repository') {
-            script {
-                checkout scm
+            steps {
+                script {
+                    checkout scm
+                }
             }
         }
-        stage('Build image') {         
-            docker.build("node-webapp")    
+        stage('Build image') {  
+            steps {
+                docker.build("node-webapp")   
+            }       
         }
         stage('Run image') {
-            script {
-                sh 'docker run -d -p 3000:3000 --name node-webapp node-webapp'
+            steps {
+                script {
+                    sh 'docker run -d -p 3000:3000 --name node-webapp node-webapp'
+                }
             }
         }
     }
