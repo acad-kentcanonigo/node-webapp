@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'linux-node'
+    }
     stages {
         stage('Clone Repository') {
             steps {
@@ -17,7 +19,9 @@ pipeline {
         }
         stage('Run image') {
             steps {
-                sh 'docker run -d -p 3000:3000 --name node-webapp node-webapp'
+                script {
+                    docker.image('node-webapp').run('-d -p 3000:3000')
+                }
             }
         }
     }
